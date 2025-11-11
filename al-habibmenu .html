@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meal on Wheel - Menu</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #eaf5ea;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      display: flex;
+      flex-direction: row;
+      background-color:black;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .logo{
+      width: 20%;
+      background-color: black;
+      color: yellow;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid #ffcc00;
+    }
+
+    .logo span {
+      font-size: 22px;
+      font-weight: bold;
+      color: #ffcc00;
+      letter-spacing: 1px;
+    }
+    .res{
+      width: 60%;
+      background-color: black;
+      color:yellow;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+
+    }
+    a{
+      width: 20%;
+    }
+
+    .menu-container {
+      background-color: #1a4d2e;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 30px;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 15px;
+      text-align: center;
+    }
+
+    .card-content h3 {
+      margin: 10px 0;
+      color: #1a4d2e;
+    }
+
+    .card-content p {
+      color: #555;
+    }
+
+    button {
+      background-color: #1a4d2e;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: yellow;
+      color: black;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="meal.png" alt="Meal on Wheel Logo" />
+      <span>Meal on Wheel</span>
+    </div>
+      <div class="res"><u> Al-Habib Restaurant </u></div>
+  <a href="cart.html" style="text-decoration: none; padding-top: 10px; width: 60px;"><button>cart</button></a> </header>
+
+  <div class="menu-container" id="menuContainer">
+    <!-- Cards dynamically added by JS -->
+  </div>
+
+  <script>
+    const items = [
+      { name: "Chicken Biryani", price: 350, img: "biryani.webp" },
+      { name: "behari", price: 450, img: "behari.webp" },
+      { name: "Chicken Karahi", price: 800, img: "karahi.webp" },
+      { name: "Paratha Roll", price: 200, img: " paneer.webp" },
+      { name: "pasta", price: 100, img: "pasta.webp" },
+      { name: "French Fries", price: 180, img: " meal.png" },
+      { name: "French Frie", price: 180, img: " fries.webp" },
+      { name: "veg biryani", price: 180, img: "veg biryani.webp" }
+    ];
+
+    const container = document.getElementById('menuContainer');
+
+    items.forEach((item, index) => {
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.innerHTML = `
+        <img src="${item.img}" alt="${item.name}">
+        <div class="card-content">
+          <h3>${item.name}</h3>
+          <p>Price: Rs. ${item.price}</p>
+          <button onclick="addToCart(${index})">Add to Cart</button>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+
+    function addToCart(index) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push(items[index]);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`${items[index].name} added to cart ✅`);
+    }
+  </script>
+</body>
+</html>

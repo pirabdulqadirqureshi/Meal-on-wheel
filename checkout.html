@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout - Meal on Wheel</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif}
+    body{
+      background-color:#115740;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      color:#fff;
+    }
+    nav{background-color:black;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:15px 50px;
+    }
+    .logo{display:flex;
+      align-items:center;
+      gap:10px}
+
+    .logo img{width:45px;
+      height:45px;
+      border-radius:50%;
+      border:2px solid #ffcc00}
+    
+      .logo span{font-size:22px;
+        font-weight:bold;
+        color:#ffcc00}
+
+    nav ul{list-style:none;display:flex;gap:25px}
+    nav ul li a{color:white;text-decoration:none;transition:.3s}
+    nav ul li a:hover{color:#ffcc00}
+    .checkout-container{max-width:800px;margin:50px auto;background-color:#115740;padding:30px;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,0.4);backdrop-filter:blur(6px)}
+    h2{text-align:center;color:#ffcc00;margin-bottom:25px;font-size:32px}
+    .info,.cart-items{background-color:rgba(255,255,255,0.15);padding:20px;border-radius:10px;margin-bottom:25px}
+    .info p{font-size:16px;margin:8px 0}
+    .cart-items table{width:100%;border-collapse:collapse;color:#fff}
+    .cart-items th,.cart-items td{border-bottom:1px solid rgba(255,255,255,0.2);padding:12px;text-align:left}
+    .cart-items th{color:#ffcc00;font-size:18px}
+    .total{text-align:right;font-size:20px;margin-top:15px;color:#ffcc00;font-weight:bold}
+    button{background-color:#ffcc00;color:#1a4d2e;border:none;padding:15px 40px;border-radius:30px;font-size:18px;cursor:pointer;font-weight:bold;transition:.3s;display:block;margin:25px auto 0;box-shadow:0 4px 12px rgba(0,0,0,0.3)}
+    button:hover{background-color:#ffd633;transform:scale(1.05)}
+    footer{background-color:black;color:white;text-align:center;padding:10px;font-size:14px;margin-top:auto}
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">
+      <img src="meal.png" alt="Meal on Wheel Logo">
+      <span>Meal on Wheel</span>
+    </div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="placeorder.html">Order</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="cart.html">Cart</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="checkout-container">
+    <h2>Order Summary</h2>
+
+    <div class="info" id="order-info">
+      <!-- User info will appear here -->
+    </div>
+
+    <div class="cart-items">
+      <table id="cart-table">
+        <tr><th>Item</th><th>Qty</th><th>Price (PKR)</th></tr>
+      </table>
+      <div class="total" id="total-price">Total: 0 PKR</div>
+    </div>
+
+    <button onclick="confirmOrder()">Confirm Order</button>
+  </div>
+
+  <footer>© 2025 Meal on Wheel | All Rights Reserved</footer>
+
+  <script>
+    const infoBox = document.getElementById("order-info");
+    const orderData = JSON.parse(localStorage.getItem("orderInfo"));
+    const cartData = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+    if(orderData){
+      infoBox.innerHTML = `
+        <p><strong>User Name:</strong> ${orderData.name}</p>
+        <p><strong>Train Name:</strong> ${orderData.trainName}</p>
+        <p><strong>Coach:</strong> ${orderData.coachName}</p>
+        <p><strong>Seat No:</strong> ${orderData.seatNo}</p>
+        <p><strong>Station Name:</strong> ${orderData.station}</p>
+        <p><strong>Comments:</strong> ${orderData.comments}</p>
+      `;
+    }
+
+    const table = document.getElementById("cart-table");
+    let total = 0;
+    cartData.forEach(item=>{
+      const row = document.createElement("tr");
+      row.innerHTML = `<td>${item.name}</td><td>${item.qty}</td><td>${item.price*item.qty}</td>`;
+      table.appendChild(row);
+      total += item.price*item.qty;
+    });
+    document.getElementById("total-price").textContent = `Total: ${total} PKR`;
+
+    function confirmOrder(){
+      alert("✅ Order Confirmed!\nThank you for choosing Meal on Wheel 🍱");
+      localStorage.clear();
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+  <meta charset="utf-8" /> 
+  <meta name="viewport" content="width=device-width,initial-scale=1" /> 
+  <title>Meal on Wheel — Login</title> 
+ 
+  <style> 
+    :root{ 
+      --primary-green: #115740; 
+      --gold-yellow: #FFD700; 
+      --deep-red: #8B0000; 
+      --dark-grey: #1C1C1C; 
+      --cream-white: #FAFAD2; 
+      --input-bg: #fff9ea; 
+    } 
+ 
+    *{box-sizing:border-box} 
+    body{ 
+      margin:0; 
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", 
+Arial; 
+      background: linear-gradient(180deg, rgba(17,87,64,0.95) 0%, rgba(17,87,64,0.9) 60%), 
+url('') no-repeat center/cover; 
+      color:var(--cream-white); 
+      min-height:100vh; 
+      display:flex; 
+      align-items:center; 
+      justify-content:center; 
+      padding:28px; 
+    } 
+ 
+    header.site-brand{ 
+      position: absolute; 
+      top: 14px; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      background: var(--dark-grey); 
+      color: var(--gold-yellow); 
+      padding: 12px 20px; 
+      border-radius: 8px; 
+      font-weight:700; 
+      letter-spacing:1px; 
+      box-shadow: 0 6px 18px rgba(0,0,0,0.45); 
+      display:flex; 
+      gap:10px; 
+      align-items:center; 
+      z-index:50; 
+    } 
+    header.site-brand .logo-mark{ 
+      width:30px; 
+      height:30px; 
+      border-radius:50%; 
+      background: var(--gold-yellow); 
+      display:inline-grid; 
+      place-items:center; 
+      color: var(--dark-grey); 
+      font-weight:900; 
+      font-size:14px; 
+      box-shadow:0 2px 6px rgba(0,0,0,0.3); 
+    } 
+ 
+    .card{ 
+      width:100%; 
+      max-width:420px; 
+      background: rgba(0,0,0,0.2); 
+      background-color: #013220;
+      border-radius:14px; 
+      padding:28px; 
+      box-shadow: 0 12px 36px rgba(0,0,0,0.5); 
+      border: 1px solid rgba(255,255,255,0.04); 
+      backdrop-filter: blur(4px); 
+    } 
+ 
+    .card h2{ 
+      margin:0 0 10px 0; 
+      color:var(--gold-yellow); 
+      font-size:22px; 
+      text-align:center; 
+    } 
+ 
+    .subtitle{ 
+      text-align:center; 
+      font-size:13px; 
+      margin-bottom:18px; 
+      color:var(--cream-white); 
+      opacity:0.9; 
+    } 
+ 
+    form label{ 
+      display:block; 
+      font-weight:600; 
+      color:var(--gold-yellow); 
+      margin-bottom:6px; 
+      font-size:13px; 
+    } 
+ 
+    .input-group{ 
+      margin-bottom:14px; 
+      position:relative; 
+    } 
+ 
+    input[type="email"], 
+    input[type="password"]{ 
+      width:100%; 
+      padding:12px 14px; 
+      border-radius:8px; 
+      border: none; 
+      outline: none; 
+      font-size:15px; 
+      background: var(--input-bg); 
+      color: var(--dark-grey); 
+      box-shadow: inset 0 1px 0 rgba(0,0,0,0.06); 
+    } 
+ 
+    .show-pass{ 
+      position:absolute; 
+      right:10px; 
+      top:50%; 
+      transform:translateY(-50%); 
+      background:transparent; 
+      border:none; 
+      font-size:13px; 
+      cursor:pointer; 
+      color:var(--dark-grey); 
+      padding:6px; 
+    } 
+ 
+    .row{ 
+      display:flex; 
+      align-items:center; 
+      justify-content:space-between; 
+      gap:10px; 
+    } 
+ 
+    .remember{ 
+      display:flex; 
+      align-items:center; 
+      gap:8px; 
+      font-size:13px; 
+      color:var(--cream-white); 
+    } 
+ 
+    .error{ 
+      color:var(--deep-red); 
+      font-size:13px; 
+      margin-top:6px; 
+      display:none; 
+    } 
+ 
+    button.btn{ 
+      margin-top:12px; 
+      width:100%; 
+      padding:12px; 
+      background:var(--gold-yellow); 
+      color:var(--dark-grey); 
+      border:none; 
+      border-radius:8px; 
+      cursor:pointer; 
+      font-weight:700; 
+      font-size:15px; 
+      transition: transform .14s ease, background .14s ease; 
+    } 
+ 
+    button.btn:hover{ 
+      transform:translateY(-3px); 
+      background:var(--deep-red); 
+      color:#fff; 
+    } 
+ 
+    .divider{ 
+      margin:18px 0; 
+      text-align:center; 
+      font-size:13px; 
+      color:var(--cream-white); 
+      opacity:0.85; 
+    } 
+ 
+    .small{ 
+      font-size:13px; 
+      color:var(--cream-white); 
+    } 
+ 
+    .create-link{ 
+      color:var(--gold-yellow); 
+      font-weight:700; 
+      text-decoration:none; 
+      margin-left:6px; 
+    } 
+ 
+    footer.small-note{ 
+      margin-top:12px; 
+      text-align:center; 
+      font-size:12px; 
+      color: rgba(250,250,210,0.85); 
+      opacity:0.95; 
+    } 
+ 
+    /* Responsive */ 
+    @media (max-width:480px){ 
+      .card{padding:20px} 
+      header.site-brand{font-size:14px;padding:10px 14px} 
+    } 
+  </style> 
+</head> 
+<body> 
+ 
+  <header class="site-brand" aria-label="Meal on Wheel brand"> 
+    <div class="logo-mark">M</div> 
+    <div>
+ 🚆
+ Meal on Wheel</div> 
+  </header> 
+ 
+  <main class="card" role="main" aria-labelledby="loginTitle"> 
+    <h2 id="loginTitle">Welcome Back</h2> 
+    <div class="subtitle">Sign in to place orders on your train — Sukkur, Karachi & more</div> 
+ 
+    <form id="loginForm" novalidate> 
+      <div class="input-group"> 
+        <label for="email">Email</label> 
+        <input id="email" name="email" type="email" placeholder="your@email.com" required 
+               aria-required="true" autocomplete="email" /> 
+        <div id="emailError" class="error">Enter a valid email address.</div> 
+      </div> 
+ 
+      <div class="input-group" style="margin-bottom:8px;"> 
+        <label for="password">Password</label> 
+        <input id="password" name="password" type="password" placeholder="••••••••" required 
+               aria-required="true" autocomplete="current-password" /> 
+        <button type="button" class="show-pass" id="togglePass" aria-label="Show 
+password">Show</button> 
+        <div id="passError" class="error">Password must be at least 6 characters.</div> 
+      </div> 
+ 
+      <div class="row"> 
+        <label class="remember"> 
+          <input id="remember" type="checkbox" style="transform:scale(1.05)" /> 
+          Remember me 
+        </label> 
+ 
+        <a href="forgot.html" class="small" style="color:var(--cream-white); 
+text-decoration:underline;">Forgot?</a> 
+      </div> 
+ 
+      <div id="submitError" class="error" style="margin-top:10px;">Invalid credentials. Try 
+again.</div> 
+ 
+       <button type="submit" class="btn" id="loginBtn"><a href="placeorder.html" style="text-decoration: none; color: black;">Sign In</a></button> 
+    </form> 
+ 
+    <div class="divider">or</div> 
+ 
+    <div style="text-align:center" class="small"> 
+      New to Meal on Wheel? 
+      <a href="create.html" class="create-link" id="createAccount">Create a new account</a> 
+    </div> 
+ 
+    <footer class="small-note">Safe & fast delivery on your train — Pakistan Railways inspired 
+theme</footer> 
+  </main> 
+ 
+  <script> 
+    (function(){ 
+      const form = document.getElementById('loginForm'); 
+      const email = document.getElementById('email'); 
+      const password = document.getElementById('password'); 
+      const emailError = document.getElementById('emailError'); 
+      const passError = document.getElementById('passError'); 
+      const submitError = document.getElementById('submitError'); 
+      const toggle = document.getElementById('togglePass'); 
+ 
+      // toggle show/hide password 
+      toggle.addEventListener('click', () => { 
+        if (password.type === 'password') { 
+          password.type = 'text'; 
+          toggle.textContent = 'Hide'; 
+          toggle.setAttribute('aria-pressed', 'true'); 
+        } else { 
+          password.type = 'password'; 
+          toggle.textContent = 'Show'; 
+          toggle.setAttribute('aria-pressed', 'false'); 
+        } 
+      }); 
+ 
+      // basic email regex 
+      function isValidEmail(v){ 
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); 
+      } 
+ 
+      function show(el){ 
+        el.style.display = 'block'; 
+      } 
+      function hide(el){ 
+        el.style.display = 'none'; 
+      } 
+ 
+      // On submit -> validate then fake-auth (client-side demo) 
+      form.addEventListener('submit', function(ev){ 
+        ev.preventDefault(); 
+        hide(emailError); 
+        hide(passError); 
+        hide(submitError); 
+ 
+        const e = email.value.trim(); 
+        const p = password.value; 
+ 
+        let ok = true; 
+        if (!isValidEmail(e)){ 
+          show(emailError); 
+          ok = false; 
+        } 
+        if (!p || p.length < 6){ 
+          show(passError); 
+          ok = false; 
+        } 
+ 
+        if (!ok) return; 
+ 
+        // === demo authentication logic === 
+        // Replace this block with real server call (fetch/XHR) in production. 
+        // For demo: if email contains "test" and password is "123456" -> success 
+        const demoSuccess = e.toLowerCase().includes('test') && p === '123456'; 
+ 
+        if (demoSuccess) { 
+          // optionally store a demo token or remember-me 
+          if (document.getElementById('remember').checked) { 
+            localStorage.setItem('mow_user', JSON.stringify({email:e, remembered:true, 
+at:Date.now()})); 
+          } else { 
+            sessionStorage.setItem('mow_user', JSON.stringify({email:e, remembered:false, 
+at:Date.now()})); 
+          } 
+ 
+          // visual success then redirect to dashboard or order page 
+          document.getElementById('loginBtn').textContent = 'Signing in...'; 
+          document.getElementById('loginBtn').disabled = true; 
+          setTimeout(() => { 
+            // Redirect to orders page or station selector 
+            window.location.href = 'order.html'; // change to your orders/dashboard page 
+          }, 900); 
+ 
+        } else { 
+          // show generic error 
+          show(submitError); 
+          // gentle shake animation 
+          const card = document.querySelector('.card'); 
+          card.animate([ 
+            { transform: 'translateX(0)' }, 
+            { transform: 'translateX(-8px)' }, 
+            { transform: 'translateX(8px)' }, 
+            { transform: 'translateX(0)' } 
+          ], { duration: 320, easing: 'ease' }); 
+        } 
+      }); 
+ 
+      // accessibility: hide errors when user corrects input 
+      email.addEventListener('input', () => { if (isValidEmail(email.value.trim())) hide(emailError); 
+}); 
+      password.addEventListener('input', () => { if (password.value.length >= 6) hide(passError); 
+}); 
+ 
+      // autofill demo: if a remembered user exists, prefill 
+      try { 
+        const saved = JSON.parse(localStorage.getItem('mow_user') || 
+sessionStorage.getItem('mow_user') || 'null'); 
+        if (saved && saved.email) { 
+          email.value = saved.email; 
+        } 
+      } catch (e){ /* ignore parse errors */ } 
+ 
+    })(); 
+  </script> 
+ 
+</body> 
+</html> 
+ 
+ 
